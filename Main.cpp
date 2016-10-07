@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstring>
 #include <vector>
 #include <algorithm>
 #include <chrono>
@@ -85,6 +86,7 @@ int main()
 		else if (pid > 0)
 		{
 			//this is the parent
+
 			waitpid(pid);	//kind of like join for processes
 			std::chrono::steady_clock::time_point stop = std::chrono::steady_clock::now();
 			ptime = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
