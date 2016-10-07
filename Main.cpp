@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 #include <chrono>
+#include <unistd.h>
+#include <sys/types.h>
 
 std::vector<std::string> parser(std::string command)
 {
@@ -73,7 +75,7 @@ int main()
 		}
 
 		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-		auto pid = fork();
+		pid_t pid = fork();
 
 		if (pid < 0)
 		{
@@ -92,7 +94,6 @@ int main()
 		{
 			//this is the child process
 			execvp(char_commands[0], char_commands);
-			//EXPCVR HERE WITH ARGS
 			perror(); 	//someething went terribly wrong if we hit this point
 			exit(); 	//don't break if bad command
 		}
