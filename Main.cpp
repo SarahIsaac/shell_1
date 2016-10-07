@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <chrono>
 
-
 std::vector<std::string> parser(std::string command)
 {
 	std::vector<std::string> command_list;
@@ -30,14 +29,6 @@ int main()
 	std::cout << "> ";
 	std::cin.getline(command, 200);
 
-	//timer example
-
-	//std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-	//f();
-	//std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-	//std::chrono::milliseconds result = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-	//return result.count();
-
 	while (strcmp(command, "exit") != 0)
 	{
 		command_history.push_back(command);
@@ -46,7 +37,7 @@ int main()
 		//PTIME
 		if (command_input[0] == "ptime")
 		{
-			std::cout << "Total Time (milliseconds) Executing Child Processes: " << ptime.count() << std::endl;
+			std::cout << "Time (milliseconds) Executing Last Child Process: " << ptime.count() << std::endl;
 
 			std::cout << "> ";
 			std::cin.getline(command, 200);
@@ -74,28 +65,37 @@ int main()
 		}
 
 		//package ready for process
-		std::vector<const char *> char_pointers;
+		std::vector<const char *> char_commands;
 		for (int i = 0; i < command_input.size(); i++)
 		{
 			const char * c_string = command_input[i].c_str();
-			char_pointers.push_back(c_string);
+			char_commands.push_back(c_string);
 		}
-		
-		//auto pid = fork();
 
-		//if (pid < 0 ) perror()
+		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
+		auto pid = fork();
 
-		//else if (pid > 0)
-		//this is the parent
-		//waitpid(pid)
-		//add parsed command to the vector of parses
+		if (pid < 0)
+		{
+			perror();
+		}
 
-		//else this is the child
-		//execpr(blah blah blah ) do stuff HERE!!!
-		//perror() (shouldn't hit this point ever!)
-		//exit() if it idoes
+		else if (pid > 0)
+		{
+			//this is the parent
+			waitpid(pid);	//kind of like join for processes
+			std::chrono::steady_clock::time_point stop = std::chrono::steady_clock::now();
+			ptime = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+		}
 
-		//waitpid(pid);
+		else
+		{
+			//this is the child process
+			execvp(char_commands[0], char_commands);
+			//EXPCVR HERE WITH ARGS
+			perror(); 	//someething went terribly wrong if we hit this point
+			exit(); 	//don't break if bad command
+		}
 
 		std::cout << "> ";
 		std::cin.getline(command, 200);
