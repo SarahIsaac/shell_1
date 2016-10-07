@@ -94,8 +94,8 @@ int main()
 		{
 			//this is the child process
 			execvp(char_commands[0], char_commands);
-			perror(); 	//someething went terribly wrong if we hit this point
-			exit(); 	//don't break if bad command
+			perror("Error: "); 	//someething went terribly wrong if we hit this point
+			exit(pid); 	//don't break if bad command
 		}
 
 		std::cout << "> ";
