@@ -72,7 +72,7 @@ int main()
 		for (int i = 0; i < command_input.size(); i++)
 		{
 			const char * c_string = command_input[i].c_str();
-			char_commands.push_back(c_string);
+			char_commands.push_back(strdup(c_string));
 		}
 		char_commands.push_back(nullptr);
 
