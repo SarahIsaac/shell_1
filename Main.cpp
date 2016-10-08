@@ -70,13 +70,29 @@ int main()
 
 // int execvp(const char *file, char *const argv[]);
 		//package ready for process
-		std::vector<const char *> char_commands;
+		// const char * char_array[100];
+		// std::vector<const char *> char_commands;
+		// for (int i = 0; i < command_input.size(); i++)
+		// {
+		// 	const char * c_string = command_input[i].c_str();
+		// 	//char_commands.push_back(c_string);
+		// 	char_array[i] = c_string;
+		// }
+		// char_commands.push_back(nullptr);
+
+		// std::vector<const char *> char_commands;
+
+		const char * char_array[100];
+		int j = 1;
 		for (int i = 0; i < command_input.size(); i++)
 		{
 			const char * c_string = command_input[i].c_str();
-			char_commands.push_back(c_string);
+			char_array[i] = c_string;
+			j++;
+			// char_commands.push_back(c_string);
 		}
-		char_commands.push_back(nullptr);
+		// char_commands.push_back(nullptr);
+		char_array[j] = nullptr;
 
 		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 		pid_t pid = fork();
@@ -90,9 +106,7 @@ int main()
 		{
 			//this is the parent
 			int * pid_ptr = &pid;
-
-			wait(pid_ptr);
-			// waitpid(pid_ptr);	//kind of like join for processes
+/			wait(pid_ptr);
 			std::chrono::steady_clock::time_point stop = std::chrono::steady_clock::now();
 			ptime = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 		}
@@ -100,7 +114,7 @@ int main()
 		else
 		{
 			//this is the child process
-			execvp(char_commands[0], &char_commands);
+			execvp(char_arrray[0], char_arrray);
 			perror("Error: "); 	//someething went terribly wrong if we hit this point
 			exit(pid); 	//don't break if bad command
 		}
