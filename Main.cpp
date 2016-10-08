@@ -6,6 +6,7 @@
 #include <chrono>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 
 std::vector<std::string> parser(std::string command)
 {
@@ -95,7 +96,7 @@ int main()
 		else
 		{
 			//this is the child process
-			execvp(char_commands[0], char_commands);
+			execvp(char_commands[0], &front(char_commands));
 			perror("Error: "); 	//someething went terribly wrong if we hit this point
 			exit(pid); 	//don't break if bad command
 		}
