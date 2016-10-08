@@ -91,7 +91,7 @@ int main()
 			//this is the parent
 			int * pid_ptr = &pid;
 
-			wait();
+			wait(pid_ptr);
 			// waitpid(pid_ptr);	//kind of like join for processes
 			std::chrono::steady_clock::time_point stop = std::chrono::steady_clock::now();
 			ptime = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
