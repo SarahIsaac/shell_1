@@ -75,6 +75,7 @@ int main()
 			const char * c_string = command_input[i].c_str();
 			char_commands.push_back(c_string);
 		}
+		char_commands.push_back(nullptr);
 
 		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 		pid_t pid = fork();
@@ -86,12 +87,10 @@ int main()
 
 		else if (pid > 0)
 		{
-			// int * this_ptr = &this_id;
-
 			//this is the parent
-			// int * pid_ptr = &pid;
+			int * pid_ptr = &pid;
 
-			waitpid(&pid);	//kind of like join for processes
+			waitpid(pid_ptr);	//kind of like join for processes
 			std::chrono::steady_clock::time_point stop = std::chrono::steady_clock::now();
 			ptime = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 		}
@@ -99,7 +98,7 @@ int main()
 		else
 		{
 			//this is the child process
-			execvp(char_commands[0], &front(char_commands));
+			execvp(char_commands[0], char_commands);
 			perror("Error: "); 	//someething went terribly wrong if we hit this point
 			exit(pid); 	//don't break if bad command
 		}
