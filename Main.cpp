@@ -106,7 +106,7 @@ int main()
 		{
 			//this is the parent
 			int * pid_ptr = &pid;
-/			wait(pid_ptr);
+			wait(pid_ptr);
 			std::chrono::steady_clock::time_point stop = std::chrono::steady_clock::now();
 			ptime = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 		}
