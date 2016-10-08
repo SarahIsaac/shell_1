@@ -76,7 +76,7 @@ int main()
 			const char * c_string = command_input[i].c_str();
 			char_commands.push_back(c_string);
 		}
-		char_commands.push_back(NULL);
+		char_commands.push_back(nullptr);
 
 		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 		pid_t pid = fork();
@@ -99,12 +99,8 @@ int main()
 
 		else
 		{
-			// std::vector<double> v;
-			// double* a = &v[0];
-
 			//this is the child process
-			const char * *commmand_array = &char_commands[0];
-			execvp(char_commands[0], commmand_array);
+			execvp(char_commands[0], char_commands);
 			perror("Error: "); 	//someething went terribly wrong if we hit this point
 			exit(pid); 	//don't break if bad command
 		}
