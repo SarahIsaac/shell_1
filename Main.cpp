@@ -30,6 +30,12 @@ int main()
 	std::vector < std::string > command_history;
 	std::chrono::milliseconds ptime;
 
+	std::cout << "WELCOME" << std::endl;
+	std::cout << "ptime: prints executing time of last child process" << std::endl;
+	std::cout << "history: print history of commands entered" << std::endl;
+	std::cout << "^ [command index] : runs that command" << std::endl;
+	std::cout << std::endl;
+
 	std::cout << "> ";
 	std::cin.getline(command, 200);
 
