@@ -41,7 +41,7 @@ int main()
 		//PTIME
 		if (command_input[0] == "ptime")
 		{
-			std::cout << "Time (milliseconds) Executing Last Child Process: " << ptime.count() << std::endl;
+			std::cout << "Time (milliseconds) Executing Last Child Process: " << ptime.count() << " ms" << std::endl;
 
 			std::cout << "> ";
 			std::cin.getline(command, 200);
@@ -65,6 +65,7 @@ int main()
 		else if (command_input[0] == "^")
 		{
 			int number = std::stoi(command_input[1]);
+			std::cout << command_history[number] << std::endl;
 			command_input = parser(command_history[number]);
 		}
 
