@@ -68,28 +68,16 @@ int main()
 			command_input = parser(command_history[number]);
 		}
 
-		// std::vector<const char *> char_commands;
-		// for (int i = 0; i < command_input.size(); i++)
-		// {
-		// 	const char * c_string = command_input[i].c_str();
-		// 	char_commands.push_back(strdup(c_string));
-		// }
-		// char_commands.push_back(nullptr);
-
 		//package ready for process
 		char* arguments[20];
 		int j = 1;
-		//std::vector<const char *> char_commands;
 		for (int i = 0; i < command_input.size(); i++)
 		{
 			const char * c_string = command_input[i].c_str();
-			//char_commands.push_back(strdup(c_string));
 			arguments[i] = strdup(c_string);
 			j++;
 		}
-		//char_commands.push_back(nullptr);
 		arguments[j] = nullptr;
-		//auto data = char_commands.data();
 
 		std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 		pid_t pid = fork();
@@ -111,7 +99,6 @@ int main()
 		else
 		{
 			//this is the child process
-			// execvp(char_commands[0], char_commands.data());
 			execvp(arguments[0], arguments);
 			perror("Error: "); 	//someething went terribly wrong if we hit this point
 			exit(pid); 	//don't break if bad command
