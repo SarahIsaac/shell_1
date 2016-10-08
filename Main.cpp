@@ -114,7 +114,7 @@ int main()
 		else
 		{
 			//this is the child process
-			execvp(char_arrray[0], char_arrray);
+			execvp(char_array[0], char_array);
 			perror("Error: "); 	//someething went terribly wrong if we hit this point
 			exit(pid); 	//don't break if bad command
 		}
