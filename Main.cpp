@@ -81,7 +81,7 @@ int main()
 
 		if (pid < 0)
 		{
-			perror();
+			perror("Error: ");
 		}
 
 		else if (pid > 0)
