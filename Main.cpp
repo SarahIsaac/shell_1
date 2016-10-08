@@ -86,9 +86,12 @@ int main()
 
 		else if (pid > 0)
 		{
-			//this is the parent
+			// int * this_ptr = &this_id;
 
-			waitpid(pid);	//kind of like join for processes
+			//this is the parent
+			// int * pid_ptr = &pid;
+
+			waitpid(&pid);	//kind of like join for processes
 			std::chrono::steady_clock::time_point stop = std::chrono::steady_clock::now();
 			ptime = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 		}
